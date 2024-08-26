@@ -20,7 +20,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/5.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-o%y7a)94+q9g&7)9^4tzxcik413us!fjq+^4jgs7*-)2u*(*iq'
+#SECRET_KEY = 'django-insecure-o%y7a)94+q9g&7)9^4tzxcik413us!fjq+^4jgs7*-)2u*(*iq'
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
@@ -32,10 +32,10 @@ CSRF_COOKIE_SECURE = True
 ALLOWED_HOSTS = [
     '127.0.0.1',
 
-'.pythonanywhere.com',
+'max2000.pythonanywhere.com',
 ]
 
-STATIC_ROOT = BASE_DIR / 'static/'
+
 
 
 import os
@@ -95,7 +95,16 @@ WSGI_APPLICATION = 'my_project.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'NAME': 'max2000$max2000',
+        'USER': 'max2000',
+        'PASSWORD': os.getenv('MYSQL_PASSWORD'),
+        'HOST': 'max2000.mysql.pythonanywhere-services.com',
+        'OPTIONS': {
+            'init_command': "SET NAMES 'utf8mb4';SET sql_mode='STRICT_TRANS_TABLES'",
+            'charset': 'utf8mb4',
+},
+
+
     }
 }
 
@@ -135,6 +144,8 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/5.1/howto/static-files/
 
 STATIC_URL = 'static/'
+
+STATIC_ROOT = BASE_DIR / 'static/'
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field
