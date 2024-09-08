@@ -39,7 +39,10 @@ ALLOWED_HOSTS = [
 
 
 import os
+from dotenv import load_dotenv
 
+
+load_dotenv()
 
 SECRET_KEY = os.getenv('SECRET_KEY')
 
@@ -94,14 +97,14 @@ WSGI_APPLICATION = 'my_project.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
+        'ENGINE': 'django.db.backends.mysql',
         'NAME': 'max2000$max2000',
         'USER': 'max2000',
         'PASSWORD': os.getenv('MYSQL_PASSWORD'),
         'HOST': 'max2000.mysql.pythonanywhere-services.com',
         'OPTIONS': {
-            'init_command': "SET NAMES 'utf8mb4';SET sql_mode='STRICT_TRANS_TABLES'",
-            'charset': 'utf8mb4',
+        'init_command': "SET NAMES 'utf8mb4'; SET sql_mode='STRICT_TRANS_TABLES'",
+        'charset': 'utf8mb4',
 },
 
 
@@ -143,9 +146,12 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.1/howto/static-files/
 
-STATIC_URL = 'static/'
 
-STATIC_ROOT = BASE_DIR / 'static/'
+
+STATIC_URL = '/static/'
+STATICFILES_DIRS = [BASE_DIR / 'static',]
+
+
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field
