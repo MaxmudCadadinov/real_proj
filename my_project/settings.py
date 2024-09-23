@@ -9,8 +9,15 @@ https://docs.djangoproject.com/en/5.1/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/5.1/ref/settings/
 """
-
+import os
 from pathlib import Path
+from dotenv import load_dotenv
+
+
+
+
+
+
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -23,28 +30,17 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 #SECRET_KEY = 'django-insecure-o%y7a)94+q9g&7)9^4tzxcik413us!fjq+^4jgs7*-)2u*(*iq'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
 SESSION_COOKIE_SECURE = True
 CSRF_COOKIE_SECURE = True
 
 
-ALLOWED_HOSTS = [
-    '127.0.0.1',
-
-'max2000.pythonanywhere.com',
-]
-
-
-
-
-import os
-from dotenv import load_dotenv
+ALLOWED_HOSTS = ['127.0.0.1']
 
 
 load_dotenv()
-
-SECRET_KEY = os.getenv('SECRET_KEY')
+SECRET_KEY = os.environ.get('DJANGO_SECRET_KEY')
 
 
 # Application definition
@@ -76,8 +72,8 @@ ROOT_URLCONF = 'my_project.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
         'APP_DIRS': True,
+        'DIRS': [os.path.join(BASE_DIR, 'templates')],
         'OPTIONS': {
             'context_processors': [
                 'django.template.context_processors.debug',
@@ -96,20 +92,15 @@ WSGI_APPLICATION = 'my_project.wsgi.application'
 # https://docs.djangoproject.com/en/5.1/ref/settings/#databases
 
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'max2000$max2000',
-        'USER': 'max2000',
-        'PASSWORD': os.getenv('MYSQL_PASSWORD'),
-        'HOST': 'max2000.mysql.pythonanywhere-services.com',
-        'OPTIONS': {
-        'init_command': "SET NAMES 'utf8mb4'; SET sql_mode='STRICT_TRANS_TABLES'",
-        'charset': 'utf8mb4',
-},
-
-
-    }
-}
+       'default': {
+           'ENGINE': 'django.db.backends.mysql',
+           'NAME': 'MyB',
+           'USER': 'root',
+           'PASSWORD': '5588',
+           'HOST': 'localhost',
+           'PORT': '3306',
+       }
+   }
 
 
 # Password validation
@@ -149,7 +140,8 @@ USE_TZ = True
 
 
 STATIC_URL = '/static/'
-STATICFILES_DIRS = [BASE_DIR / 'static',]
+
+STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static'),]
 
 
 
