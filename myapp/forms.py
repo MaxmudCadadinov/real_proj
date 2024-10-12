@@ -10,8 +10,8 @@ class Loginform(forms.Form):
 
 class regist_form(forms.Form):
     username = forms.CharField(max_length=50)
-    password = forms.EmailField()
-    email = forms.EmailInput()
+    password = forms.CharField()
+    email = forms.EmailField()
     tel = forms.CharField(max_length=30)
 
 

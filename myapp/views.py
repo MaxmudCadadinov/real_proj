@@ -9,7 +9,7 @@ from myapp.models import User
 
 
 
-
+###
 @csrf_protect
 def  entrance(request):
     if request.method == 'POST':
@@ -17,14 +17,11 @@ def  entrance(request):
         if form.is_valid():
             username = form.cleaned_data['username']
             password = form.cleaned_data['password']
-            # user = User.objects.filter(name=username, password=password).exists()
-            # if user:
-            #     pass
-            
-                
-
-            
-
+            user = User.objects.filter(name=username, password=password).exists()
+            if user:
+                pass
+            else:
+                return redirect('/regis')
 
            
     else:
@@ -32,12 +29,28 @@ def  entrance(request):
 
     return render(request, 'myapp/entrance.html', {'form': form})
 
-       
-
-
-
+###      
+@csrf_protect
 def registration(request):
-    pass
+    if request.method == 'POST':
+        form = regist_form(request.POST)
+        if form.is_valid():
+            username = form.cleaned_data['username']
+            password = form.cleaned_data['password']
+            email = form.cleaned_data['email']
+            telefon = form.cleaned_data['tel']        
+            
+            user = User(user_name = username, password = password, email = email, tel = telefon)
+            user.save()
+
+    else:
+        form = regist_form()
+
+    return render(request, 'myapp/regis.html', {'form': form})
+
+###
+def profile(request):   
+    return render
 
 
 
