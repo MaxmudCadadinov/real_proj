@@ -94,7 +94,7 @@ WSGI_APPLICATION = 'my_project.wsgi.application'
 DATABASES = {
        'default': {
            'ENGINE': 'django.db.backends.mysql',
-           'NAME': 'MyB',
+           'NAME': 'myb',
            'USER': 'root',
            'PASSWORD': '5588',
            'HOST': 'localhost',
@@ -154,3 +154,5 @@ INTERNAL_IPS = [
 '127.0.0.1',
 ]
 
+MEDIA_URL = '/media/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')

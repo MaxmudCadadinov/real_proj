@@ -1,10 +1,10 @@
 
 from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate
-from .forms import Loginform, regist_form
+from .forms import Loginform, regist_form, photo
 from django.http import HttpResponse
 from django.views.decorators.csrf import csrf_protect
-from myapp.models import User
+from myapp.models import User, Photo
 
 
 
@@ -19,7 +19,10 @@ def  entrance(request):
             password = form.cleaned_data['password']
             user = User.objects.filter(name=username, password=password).exists()
             if user:
-                pass
+                user = User.objects.filter(name=username, password=password).first()
+                pk = user.id
+                return redirect('profile', user=pk)
+
             else:
                 return redirect('/regis')
 
@@ -29,6 +32,27 @@ def  entrance(request):
 
     return render(request, 'myapp/entrance.html', {'form': form})
 
+###
+def profile(request, user):   
+
+    if request.method == 'POST':
+        form = photo(request.POST, request.FILES)
+        
+        if form.is_valid():
+            photoname = form.cleaned_data['photo']
+            user_instance = User.objects.get(id=user)
+            savephoto = Photo(image= photoname, user=user_instance)
+            savephoto.save()
+            
+        else:
+            print('not valid')
+       
+    else:
+        form = photo()
+
+    return render(request, 'myapp/profile.html', {'form': form})
+
+
 ###      
 @csrf_protect
 def registration(request):
@@ -37,10 +61,7 @@ def registration(request):
         if form.is_valid():
             username = form.cleaned_data['username']
             password = form.cleaned_data['password']
-            email = form.cleaned_data['email']
-            telefon = form.cleaned_data['tel']        
-            
-            user = User(user_name = username, password = password, email = email, tel = telefon)
+            user = User(user_name = username, password = password)
             user.save()
 
     else:
@@ -49,8 +70,8 @@ def registration(request):
     return render(request, 'myapp/regis.html', {'form': form})
 
 ###
-def profile(request):   
-    return render
+
+    
 
 
 

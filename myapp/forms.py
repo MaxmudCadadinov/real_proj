@@ -1,6 +1,6 @@
 from django import forms
-from django.contrib.auth.models import User
-
+#from django.contrib.auth.models import User
+from django.db import models
 
 
 class Loginform(forms.Form):
@@ -11,7 +11,7 @@ class Loginform(forms.Form):
 class regist_form(forms.Form):
     username = forms.CharField(max_length=50)
     password = forms.CharField()
-    email = forms.EmailField()
-    tel = forms.CharField(max_length=30)
-
-
+    
+class photo (forms.Form):
+    photo = forms.ImageField(label='Выберите изображение')
+    

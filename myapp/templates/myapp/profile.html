@@ -4,6 +4,14 @@
 
 
 <h1>Hello</h1>
-{% csrf_token %}
+
+<form method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+    {{ form }} 
+    <button type="submit">Загрузить</button>
+</form>
+
+
+
 
 {% endblock %}
