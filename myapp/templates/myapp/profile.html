@@ -1,17 +1,84 @@
-{% extends 'base.html' %}
+ 
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+.navbar {
+    background: #2c3e50;
+    padding: 1rem;
+    border-radius: 10px;
+    margin-bottom: 20px;
+}
 
-{% block content %}
+.navbar ul {
+    list-style: none;
+    display: flex;
+    gap: 2rem;
+    margin: 0;
+    padding: 0;
+}
 
+.navbar li {
+    position: relative;
+}
 
-<h1>Hello</h1>
+.navbar a {
+    color: white;
+    text-decoration: none;
+    font-size: 1.1rem;
+    padding: 0.5rem 1rem;
+    border-radius: 5px;
+    transition: background-color 0.3s;
+}
 
-<form method="post" enctype="multipart/form-data">
-    {% csrf_token %}
-    {{ form }} 
-    <button type="submit">Загрузить</button>
-</form>
+.navbar a:hover {
+    background-color: #34495e;
+}
 
+/* Стили для иконок */
+.navbar a::before {
+    content: '';
+    display: inline-block;
+    width: 24px;
+    height: 24px;
+    margin-right: 8px;
+    vertical-align: middle;
+}
 
+.photos::before {
+    background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path fill="%23ffffff" d="M3 9l2 2v11h14V11l2-2V3H3v6zm16-4H5V3h14v2z"/></svg>');
+}
 
+.videos::before {
+    background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path fill="%23ffffff" d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8z"/></svg>');
+}
 
-{% endblock %}
+.messages::before {
+    background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path fill="%23ffffff" d="M20 2H4c-1.1 0-2 .9-2 2v18l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm0 16H4V4h16v14z"/></svg>');
+}
+
+/* Адаптивность */
+@media (max-width: 768px) {
+    .navbar ul {
+        flex-direction: column;
+        gap: 1rem;
+    }
+
+    .navbar a {
+        width: 100%;
+        text-align: center;
+    }
+}
+</style>
+</head>
+<body>
+    <nav class="navbar">
+        <h1>ПРИВЕТ {{ user_name }}</h1>
+        <ul>
+            <li><a href="{% url 'photos' user %}" class="photos">Фотографии</a></li>
+            <li><a href="/videos" class="videos">Видео</a></li>
+            <li><a href="/messages" class="messages">Сообщения</a></li>
+        </ul>
+    </nav>
+</body>
+</html>

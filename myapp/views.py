@@ -33,7 +33,17 @@ def  entrance(request):
     return render(request, 'myapp/entrance.html', {'form': form})
 
 ###
-def profile(request, user):   
+def profile(request, user):
+    
+    user = User.objects.filter(id = user).first()
+    name = user.name
+    user_id = user.id
+    box = {'user': user_id, 'user_name': name}
+    
+    return render(request, 'myapp/profile.html', box)
+
+
+def photos(request, user):   
 
     if request.method == 'POST':
         form = photo(request.POST, request.FILES)
@@ -50,7 +60,7 @@ def profile(request, user):
     else:
         form = photo()
 
-    return render(request, 'myapp/profile.html', {'form': form})
+    return render(request, 'myapp/photos.html', {'form': form})
 
 
 ###      
