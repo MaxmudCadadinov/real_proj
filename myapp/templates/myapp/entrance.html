@@ -1,11 +1,12 @@
+{% load static %} 
 
-{% extends 'base.html' %}
-
-{% block content %}
-<h1>ВХОД</h1>
-<form method="post">
-{% csrf_token %}
-{{form}}
-<input type="submit" value="Отправить">
-</form>
-{% endblock %}
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Загрузка файла</title>
+    <link rel="stylesheet" href="{% static "css/styles.css" %}"> <!-- Подключение CSS файла -->
+</head>
+ 
+</html>

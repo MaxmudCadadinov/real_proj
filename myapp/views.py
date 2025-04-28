@@ -5,7 +5,8 @@ from .forms import Loginform, regist_form, photo
 from django.http import HttpResponse
 from django.views.decorators.csrf import csrf_protect
 from myapp.models import User, Photo
-
+from django.contrib.auth.decorators import login_required
+from django.contrib import messages
 
 
 
@@ -33,6 +34,7 @@ def  entrance(request):
     return render(request, 'myapp/entrance.html', {'form': form})
 
 ###
+@csrf_protect
 def profile(request, user):
     
     user = User.objects.filter(id = user).first()
@@ -42,28 +44,31 @@ def profile(request, user):
     
     return render(request, 'myapp/profile.html', box)
 
-
-def photos(request, user):   
-
+@csrf_protect
+def photos(request, user):
     if request.method == 'POST':
-        form = photo(request.POST, request.FILES)
-        
+        form = photo(request.POST, request.FILES)  # Используйте request.FILES
         if form.is_valid():
             photoname = form.cleaned_data['photo']
             user_instance = User.objects.get(id=user)
-            savephoto = Photo(image= photoname, user=user_instance)
+            savephoto = Photo(image=photoname, user=user_instance)
             savephoto.save()
-            
+            messages.success(request, 'Фотография успешно загружена!')
+            return redirect('photos')
         else:
-            print('not valid')
-       
+            messages.error(request, 'Ошибка при загрузке фотографии')
     else:
         form = photo()
+        all_photos = Photo.objects.filter(user_id=user)
+    return render(request, 'myapp/photos.html', {'f orm': form, 'all_photos': all_photos})
+###                                                                                         
 
-    return render(request, 'myapp/photos.html', {'form': form})
 
 
-###      
+###
+
+
+
 @csrf_protect
 def registration(request):
     if request.method == 'POST':
@@ -79,10 +84,10 @@ def registration(request):
 
     return render(request, 'myapp/regis.html', {'form': form})
 
-###
+
 
     
 
 
 
-
+                                                                                            

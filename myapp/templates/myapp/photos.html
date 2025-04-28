@@ -11,7 +11,12 @@
     <button type="submit">Загрузить</button>
 </form>
 
-
-
+{% for photo in all_photos %}
+    <div class="photo-container">
+        <img src="{{ photo.image.url }}" width="350" height="250" alt="Photo {{ photo.id }}">
+    </div>
+{% empty %}
+    <p>Фотографий пока нет.</p>
+{% endfor %}
 
 {% endblock %}
