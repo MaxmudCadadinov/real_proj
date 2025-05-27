@@ -54,13 +54,13 @@ def photos(request, user):
             savephoto = Photo(image=photoname, user=user_instance)
             savephoto.save()
             messages.success(request, 'Фотография успешно загружена!')
-            return redirect('photos')
+            return redirect('photos', user=user)
         else:
             messages.error(request, 'Ошибка при загрузке фотографии')
     else:
         form = photo()
         all_photos = Photo.objects.filter(user_id=user)
-    return render(request, 'myapp/photos.html', {'f orm': form, 'all_photos': all_photos})
+    return render(request, 'myapp/photos.html', {'form': form, 'all_photos': all_photos})
 ###                                                                                         
 
 
